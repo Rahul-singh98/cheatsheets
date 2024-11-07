@@ -1,0 +1,295 @@
+### Customers Table
+
+| customer_id | first_name | last_name | age | country |
+| ----------- | ---------- | --------- | --- | ------- |
+| 1           | John       | Doe       | 31  | USA     |
+| 2           | Robert     | Luna      | 22  | USA     |
+| 3           | David      | Robinson  | 22  | UK      |
+| 4           | John       | Reinhardt | 25  | UK      |
+| 5           | Betty      | Doe       | 28  | UAE     |
+
+### Orders Table
+
+| order_id | item     | amount | customer_id |
+| -------- | -------- | ------ | ----------- |
+| 1        | Keyboard | 400    | 4           |
+| 2        | Mouse    | 300    | 4           |
+| 3        | Monitor  | 12000  | 3           |
+| 4        | Keyboard | 400    | 1           |
+| 5        | Mousepad | 250    | 2           |
+
+### Shippings Table
+
+| shipping_id | status    | customer |
+| ----------- | --------- | -------- |
+| 1           | Pending   | 2        |
+| 2           | Pending   | 4        |
+| 3           | Delivered | 3        |
+| 4           | Pending   | 5        |
+| 5           | Delivered | 1        |
+
+### 1. **How many customers are from the USA?**
+
+**Query:**
+
+```sql
+SELECT COUNT(*)
+FROM Customers
+WHERE country = 'USA';
+```
+
+**Answer:** 2 customers are from the USA.
+
+---
+
+### 2. **Which customer ordered the Monitor?**
+
+**Query:**
+
+```sql
+SELECT c.first_name, c.last_name
+FROM Customers c
+JOIN Orders o ON c.customer_id = o.customer_id
+WHERE o.item = 'Monitor';
+```
+
+**Answer:** David Robinson ordered the Monitor.
+
+---
+
+### 3. **What is the total amount spent by the customer named 'John Doe'?**
+
+**Query:**
+
+```sql
+SELECT SUM(o.amount)
+FROM Orders o
+JOIN Customers c ON o.customer_id = c.customer_id
+WHERE c.first_name = 'John' AND c.last_name = 'Doe';
+```
+
+**Answer:** John Doe spent 400.
+
+---
+
+### 4. **Which orders have not yet been delivered?**
+
+**Query:**
+
+```sql
+SELECT o.order_id, o.item, o.amount, s.status
+FROM Orders o
+JOIN Shippings s ON o.customer_id = s.customer
+WHERE s.status = 'Pending';
+```
+
+**Answer:**
+
+- Order 2: Mouse for 300
+- Order 1: Keyboard for 400
+- Order 5: Mousepad for 250
+
+---
+
+### 5. **List all customers who have pending shipping status.**
+
+**Query:**
+
+```sql
+SELECT c.first_name, c.last_name
+FROM Customers c
+JOIN Shippings s ON c.customer_id = s.customer
+WHERE s.status = 'Pending';
+```
+
+**Answer:**
+
+- Robert Luna
+- John Reinhardt
+- Betty Doe
+
+---
+
+### 6. **How much has each customer spent in total?**
+
+**Query:**
+
+```sql
+SELECT c.first_name, c.last_name, SUM(o.amount) AS total_spent
+FROM Customers c
+JOIN Orders o ON c.customer_id = o.customer_id
+GROUP BY c.first_name, c.last_name;
+```
+
+**Answer:**
+
+- John Doe: 400
+- Robert Luna: 250
+- David Robinson: 12000
+- John Reinhardt: 700
+
+---
+
+### 7. **Which customers ordered both a keyboard and a mouse?**
+
+**Query:**
+
+```sql
+SELECT c.first_name, c.last_name
+FROM Customers c
+WHERE c.customer_id IN (
+    SELECT customer_id
+    FROM Orders
+    WHERE item = 'Keyboard'
+) AND c.customer_id IN (
+    SELECT customer_id
+    FROM Orders
+    WHERE item = 'Mouse'
+);
+```
+
+**Answer:** John Reinhardt ordered both a keyboard and a mouse.
+
+---
+
+### 8. **What is the average age of customers from the UK?**
+
+**Query:**
+
+```sql
+SELECT AVG(age)
+FROM Customers
+WHERE country = 'UK';
+```
+
+**Answer:** The average age of customers from the UK is 23.5.
+
+---
+
+### 9. **How many items have been delivered?**
+
+**Query:**
+
+```sql
+SELECT COUNT(o.order_id)
+FROM Orders o
+JOIN Shippings s ON o.customer_id = s.customer
+WHERE s.status = 'Delivered';
+```
+
+**Answer:** 2 items have been delivered.
+
+---
+
+### 10. **Which customer has the highest total order amount?**
+
+**Query:**
+
+```sql
+SELECT c.first_name, c.last_name, SUM(o.amount) AS total_spent
+FROM Customers c
+JOIN Orders o ON c.customer_id = o.customer_id
+GROUP BY c.first_name, c.last_name
+ORDER BY total_spent DESC
+LIMIT 1;
+```
+
+**Answer:** David Robinson has the highest total order amount (12,000).
+
+---
+
+### 11. **Which customer has placed the fewest orders?**
+
+**Query:**
+
+```sql
+SELECT c.first_name, c.last_name, COUNT(o.order_id) AS total_orders
+FROM Customers c
+LEFT JOIN Orders o ON c.customer_id = o.customer_id
+GROUP BY c.first_name, c.last_name
+ORDER BY total_orders ASC
+LIMIT 1;
+```
+
+**Answer:** Betty Doe has placed 0 orders.
+
+---
+
+### 12. **What is the most expensive item that has been shipped?**
+
+**Query:**
+
+```sql
+SELECT o.item, MAX(o.amount) AS highest_amount
+FROM Orders o
+JOIN Shippings s ON o.customer_id = s.customer
+WHERE s.status = 'Delivered';
+```
+
+**Answer:** The Monitor is the most expensive item shipped (12,000).
+
+---
+
+### 13. **Which customers have not placed any orders?**
+
+**Query:**
+
+```sql
+SELECT c.first_name, c.last_name
+FROM Customers c
+LEFT JOIN Orders o ON c.customer_id = o.customer_id
+WHERE o.order_id IS NULL;
+```
+
+**Answer:** Betty Doe has not placed any orders.
+
+---
+
+### 14. **What is the total revenue generated by all orders?**
+
+**Query:**
+
+```sql
+SELECT SUM(amount)
+FROM Orders;
+```
+
+**Answer:** The total revenue generated is 13,350.
+
+---
+
+### 15. **Which customer has received their order?**
+
+**Query:**
+
+```sql
+SELECT c.first_name, c.last_name
+FROM Customers c
+JOIN Shippings s ON c.customer_id = s.customer
+WHERE s.status = 'Delivered';
+```
+
+**Answer:**
+
+- David Robinson
+- John Doe
+
+---
+
+### 16. **Get Customers which are from same country**
+
+**Query:**
+
+```sql
+SELECT a.customer_id, b.customer_id, a.country || '-' || b.country
+FROM Customers a, Customers b
+WHERE a.customer_id < b.customer_id AND a.country = b.country
+ORDER BY a.country;
+```
+
+**Answer:**
+
+- 3 4 UK-UK
+- 1 2 USA-USA
+
+---
