@@ -1,5 +1,21 @@
 # Bandit commands to play the game
 
+## Pre Requisite
+* docker command 
+```bash
+docker run --rm -it ubuntu
+```
+
+* update and install openssh-client
+```bash
+apt-get update && apt-get install -y openssh-client
+```
+
+* install sshpass
+```bash
+apt-get install sshpass -y
+```
+
 ### Level 0
 ```bash
 sshpass -p $(cat passwords/0) ssh bandit0@bandit.labs.overthewire.org -p 2220 cat readme 
@@ -33,7 +49,7 @@ bandit3@bandit:~$ cd inhere | cat ...Hiding-From-You
 sshpass -p $(cat passwords/4) ssh bandit4@bandit.labs.overthewire.org -p 2220 
 bandit4@bandit:~$ cd inhere
 bandit4@bandit:~/inhere$ for i in $(ls); do file ./$i; done
-bandit4@bandit:~/inhere$ cat ./-file07  # Select file which showing ASCII text
+bandit4@bandit:~/inhere$ cat ./-file07
 ```
 
 ### Level 5
@@ -77,4 +93,78 @@ bandit10@bandit:~$ base64 -d data.txt
 ```bash
 sshpass -p $(cat passwords/11) ssh bandit11@bandit.labs.overthewire.org -p 2220
 bandit11@bandit:~$ cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+```
+
+### Level 12
+```bash
+sshpass -p $(cat passwords/12) ssh bandit12@bandit.labs.overthewire.org -p 2220
+bandit12@bandit:~$ mktemp -d
+bandit12@bandit:~$ cd /tmp/tmp.Askoiankl
+bandit12@bandit:~$ xxd -r d.txt > data.bin
+bandit12@bandit:~$ file data.bin
+
+bandit12@bandit:~$ mv data.bin data.gz
+bandit12@bandit:~$ gunzip data.gz
+bandit12@bandit:~$ file data
+
+bandit12@bandit:~$ mv data data.bz2
+bandit12@bandit:~$ bunzip2 data.bz2
+bandit12@bandit:~$ file data
+
+bandit12@bandit:~$ mv data data.tar
+bandit12@bandit:~$ tar -xf data.tar
+bandit12@bandit:~$ file data
+
+bandit12@bandit:~$ cat data
+```
+
+### Level 13
+```bash
+sshpass -p $(cat passwords/13) ssh bandit13@bandit.labs.overthewire.org -p 2220
+bandit13@bandit:~$ ls
+bandit13@bandit:~$ exit
+
+root@root:~$ scp -P 2220 bandit13@bandit.labs.overthewire.org:sshkey.private .
+root@root:~$ chmod 700 sshkey.private
+root@root:~$ ssh -i sshkey.private bandit14@bandit.labs.overthewire.org -p 2220
+```
+
+### Level 14
+```bash
+sshpass -p $(cat passwords/14) ssh bandit14@bandit.labs.overthewire.org -p 2220
+bandit14@bandit:~$ nc localhost 30000 # paste the current level password
+```
+
+### Level 15
+```bash
+sshpass -p $(cat passwords/15) ssh bandit15@bandit.labs.overthewire.org -p 2220
+bandit15@bandit:~$ openssl s_client -connect localhost:30001 # paste current level password
+```
+
+### Level 16
+```bash
+sshpass -p $(cat passwords/16) ssh bandit16@bandit.labs.overthewire.org -p 2220
+bandit16@bandit:~$ nmap -p 31000-32000 localhost
+bandit16@bandit:~$ openssl s_client -connect localhost:31790
+ # paste current level password
+bandit16@bandit:~$ exit
+root@root:~$ mktemp -d
+root@root:~$ cd /tmp/tmp.lOiokas
+root@root:~$ touch private.key
+root@root:~$ vim private.key # Paste SSH key here
+root@root:~$ chmod 600 private.key
+root@root:~$ ssh -i private.key bandit17@bandit.labs.overthewire.org -p 2220
+bandit17@bandit:~$ cat /etc/bandit_pass/bandit17
+```
+
+### Level 17
+```bash
+sshpass -p $(cat passwords/17) ssh bandit17@bandit.labs.overthewire.org -p 2220
+bandit17@bandit:~$ diff passwords.old passwords.new 
+```
+
+### Level 18
+```bash
+sshpass -p $(cat passwords/18) ssh bandit18@bandit.labs.overthewire.org -p 2220
+bandit18@bandit:~$ diff passwords.old passwords.new 
 ```
