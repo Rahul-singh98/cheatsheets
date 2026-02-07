@@ -165,6 +165,28 @@ bandit17@bandit:~$ diff passwords.old passwords.new
 
 ### Level 18
 ```bash
-sshpass -p $(cat passwords/18) ssh bandit18@bandit.labs.overthewire.org -p 2220
-bandit18@bandit:~$ diff passwords.old passwords.new 
+sshpass -p $(cat passwords/18) ssh bandit18@bandit.labs.overthewire.org -p 2220 cat readme
+```
+
+### Level 19
+```bash
+sshpass -p $(cat passwords/19) ssh bandit19@bandit.labs.overthewire.org -p 2220
+bandit19@bandit:~$ ./bandit20-do cat /etc/bandit_pass/bandit20
+```
+
+### Level 20
+```bash
+sshpass -p $(cat passwords/20) ssh bandit20@bandit.labs.overthewire.org -p 2220
+bandit20@bandit:~$ echo -n '0qXahG8ZjOVMN9Ghs7iOWsCfZyXOUbYO' | nc -l -p 1234 &
+bandit20@bandit:~$ ./suconnect 1234
+```
+
+### Level 21
+```bash
+sshpass -p $(cat passwords/21) ssh bandit21@bandit.labs.overthewire.org -p 2220
+bandit21@bandit:~$ cd /etc/cron.d/
+bandit21@bandit:/etc/cron.d$ ls
+bandit21@bandit:/etc/cron.d$ cat cronjob_bandit22
+bandit21@bandit:/etc/cron.d$ cat /usr/bin/cronjob_bandit22.sh
+bandit21@bandit:/etc/cron.d$ cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
 ```
