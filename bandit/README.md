@@ -287,3 +287,19 @@ rahul@rahul:~$ touch key.txt
 rahul@rahul:~$ git commit -m "message"
 rahul@rahul:~$ git push origin master
 ```
+
+### Level 32
+```bash
+rahul@rahul:~$ ssh bandit32@bandit.labs.overthewire.org -p 2220
+rahul@rahul:~$ >> $0
+rahul@rahul:~$ ls -la
+rahul@rahul:~$ cat /etc/bandit_pass/bandit33
+```
+
+### Level 33
+```bash
+rahul@rahul:~$ ssh bandit33@bandit.labs.overthewire.org -p 2220
+rahul@rahul:~$ >> $0
+rahul@rahul:~$ ls -la
+rahul@rahul:~$ cat /etc/bandit_pass/bandit33
+```
