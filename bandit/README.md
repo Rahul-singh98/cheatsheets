@@ -247,3 +247,43 @@ bandit26@bandit:~$ ./bandit27-do
 bandit26@bandit:~$ cat /etc/bandit_pass/bandit27
 bandit26@bandit:~$ ./bandit27-do cat /etc/bandit_pass/bandit27
 ```
+
+### Level 27
+```bash
+rahul@rahul:~$ git clone ssh://bandit27-git@bandit.labs.overthewire.org:2220/home/bandit27-git/repo
+rahul@rahul:~$ cd repo
+```
+
+### Level 28
+```bash
+rahul@rahul:~$ git clone ssh://bandit28-git@bandit.labs.overthewire.org:2220/home/bandit28-git/repo
+rahul@rahul:~$ cd repo
+rahul@rahul:~$ git show
+```
+
+### Level 29
+```bash
+rahul@rahul:~$ git clone ssh://bandit29-git@bandit.labs.overthewire.org:2220/home/bandit29-git/repo
+rahul@rahul:~$ cd repo
+rahul@rahul:~$ ls -la
+rahul@rahul:~$ git branch -a
+rahul@rahul:~$ git checkout dev
+```
+
+### Level 30
+```bash
+rahul@rahul:~$ git clone ssh://bandit30-git@bandit.labs.overthewire.org:2220/home/bandit30-git/repo
+rahul@rahul:~$ cd repo
+rahul@rahul:~$ ls -la
+rahul@rahul:~$ git tag
+rahul@rahul:~$ git show secret
+```
+
+### Level 31
+```bash
+rahul@rahul:~$ git clone ssh://bandit31-git@bandit.labs.overthewire.org:2220/home/bandit31-git/repo
+rahul@rahul:~$ cd repo
+rahul@rahul:~$ touch key.txt
+rahul@rahul:~$ git commit -m "message"
+rahul@rahul:~$ git push origin master
+```
